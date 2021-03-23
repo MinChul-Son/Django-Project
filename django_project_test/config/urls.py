@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import index, welcome
+from .views import index, welcome, template_test
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('welcome/', welcome),
+    path('test/', template_test),
     path('', index),
     # path(주소, 뷰, 주소의 별명)
 ]

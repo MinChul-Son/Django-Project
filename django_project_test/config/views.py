@@ -12,6 +12,7 @@
 #   제네릭 뷰를 많이 사용함
 
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def index(request):  # request에는 사용자가 웹브라우져를 통해 요청한 정보들이 들어가있음.
@@ -28,3 +29,7 @@ def index(request):  # request에는 사용자가 웹브라우져를 통해 요�
 def welcome(request):
     html = "<html><body>Welcome to Django</body></html>"
     return HttpResponse(html)
+
+
+def template_test(request):
+    return render(request, 'test.html')
