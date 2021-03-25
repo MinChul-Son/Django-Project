@@ -16,3 +16,10 @@ class Bookmark(models.Model):
 # 2. 제약 사항 (몇 글자까지, 한글도 들어갈 수 있다 등등)
 # 3. Form 의 종류
 # 4. Form 에서의 제약 사항
+
+    def __str__(self):
+        return "사이트 명 : " + self.site_name + ", url: " + self.url
+
+# 모델을 만들었다 ==> 데이터베이스에 어떤 데이터들을 어떤 형태로 넣을지 결정!
+# makemigrations ==> 모델의 변경사항을 추적해서 기록
+# 마이그레이션(migrate) ==> 데이터베이스에 모델의 내용을 반경(테이블 생성)
