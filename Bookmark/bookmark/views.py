@@ -5,7 +5,7 @@ from django.shortcuts import render
 # 뷰에는 클래스형 뷰 / 함수형 뷰가 존재
 
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 
 from django.urls import reverse_lazy
@@ -31,3 +31,8 @@ class BookmarkUpdateView(UpdateView):
     model = Bookmark
     fields = ['site_name', 'url']
     template_name_suffix = '_update'
+
+
+class BookmarkDeleteView(DeleteView):
+    model = Bookmark
+    success_url = reverse_lazy('list')
