@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.naver',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -132,13 +133,14 @@ AWS_STORAGE_BUCKET_NAME = 'djangoshop-static'
 AWS_S3_CUSTOM_DOMAIN = f's3.{AWS_REGION}.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}'
 AWS_S3_FILE_OVERWRITE = False
 AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl':'max-age=86400',
+    'CacheControl': 'max-age=86400',
 }
 AWS_DEFAULT_ACL = 'public-read'
 AWS_LOCATION = ''
-
 
 STATIC_URL = f'http://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 DEFAULT_FILE_STORAGE = 'config.s3media.MediaStorage'
+
+CART_ID = 'cart_item'
