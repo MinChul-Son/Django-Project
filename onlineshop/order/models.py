@@ -76,4 +76,18 @@ class OrderTransactionManager(models.Manager):
 
 
 class OrderTransaction(models.Model):
-    pass
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    merchant_order_id = models.CharField(max_length=120, null=True, blank=True)
+    transaction_id = models.CharField(max_length=120, null=True, blank=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    transaction_status = models.CharField(max_length=220, null=True, blank=True)
+    type = models.CharField(max_length=120, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    objects = OrderTransactionManager()
+
+    def __str__(self):
+        return str(self.order.id)
+
+    class Meta:
+        ordering = ['-created']
