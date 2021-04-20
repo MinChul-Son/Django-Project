@@ -41,15 +41,18 @@ class OrderItem(models.Model):
     def get_item_price(self):
         return self.price * self.quantity
 
+
 import hashlib
 from .iamport import payments_prepare, find_transaction
+
+
 class OrderTransactionManager(models.Manager):
     def create_new(self, order, amount, success=None, transaction_status=None):
         if not order:
             raise ValueError("주문 정보 오류")
         order_hash = hashlib.sha1(str(order.id).encode('utf-8')).hexdigest()
         email_hash = str(order.email).split("@")[0]
-        final_hash = hashlib.sha1((order_hash+email_hash).encode("utf-8")).hexdigest()[:10]
+        final_hash = hashlib.sha1((order_hash + email_hash).encode("utf-8")).hexdigest()[:10]
         merchant_order_id = str(final_hash)
         payments_prepare(merchant_order_id, amount)
         transaction = self.model(
@@ -91,3 +94,21 @@ class OrderTransaction(models.Model):
 
     class Meta:
         ordering = ['-created']
+
+
+def order_payment_validation(sender, instance, created, *args, **kwargs):
+    if instance.transaction_id:
+        iamport_transaction = OrderTransaction.objects.get_transaction(merchant_order_id=instance.merchant_orider_id)
+        merchant_order_id = iamport_transaction['merchant_order_id']
+        imp_id = iamport_transaction['imp_id']
+        amount = iamport_transaction['amount']
+
+        local_transaction = OrderTransaction.objects.filter(merchant_order_id=merchant_order_id, transaction_id=imp_id, amount=amount).exists()
+
+        if not iamport_transaction or not local_transaction:
+            raise ValueError("비정상 거래입니다.")
+
+
+from django.db.models.signals import post_save
+
+post_save.connect(order_payment_validation, sender=OrderTransaction)
