@@ -44,8 +44,12 @@
         <tr class="total">
             <td>Total</td>
             <td colspan="4"></td>
-            <td class="num">${{ cart.get_total_price|floatformat:"2" }}</td>
+            <td class="num">${{ cart.get_product_total|floatformat:"2" }}</td>
         </tr>
         </tbody>
     </table>
+    <p class="text-right">
+        <a href='{% url "shop:product_all" %}' class="btn btn-secondary">Continue shopping</a>
+        <a href='{% url "order:order_create" %}' class="btn btn-primary">Checkout</a>
+    </p>
 {% endblock %}
