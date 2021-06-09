@@ -98,7 +98,7 @@ class OrderTransaction(models.Model):
 
 def order_payment_validation(sender, instance, created, *args, **kwargs):
     if instance.transaction_id:
-        iamport_transaction = OrderTransaction.objects.get_transaction(merchant_order_id=instance.merchant_orider_id)
+        iamport_transaction = OrderTransaction.objects.get_transaction(merchant_order_id=instance.merchant_order_id)
         merchant_order_id = iamport_transaction['merchant_order_id']
         imp_id = iamport_transaction['imp_id']
         amount = iamport_transaction['amount']

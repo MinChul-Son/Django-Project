@@ -110,7 +110,7 @@ class OrderImpAjaxView(View):
             order.save()
 
             data = {
-                "works":True
+                "works": True
             }
             return JsonResponse(data)
         else:
