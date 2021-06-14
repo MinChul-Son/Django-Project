@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-2">
             <div class="list-group">
-                <a href="/" class="list-group-item {% if not current_category %}active{% endif %}">All</a>
+                <a href="/" class="list-group-item {% if not current_category %}active{% endif %}">모든 상품</a>
                 {% for c in categories %}
                     <a href="{{c.get_absolute_url}}" class="list-group-item {% if current_category.slug == c.slug %}active{% endif %}">{{c.name}}</a>
                 {% endfor %}
@@ -16,7 +16,14 @@
 
         <div class="col">
             <div class="alert alert-info" role="alert">
-              {% if current_category %}{{current_category.name}}{% else %}All Products{% endif %}
+              {% if current_category %}{{current_category.name}}{% else %}모든 상품{% endif %}
+<!--                <form class="d-flex" action="" method="GET">-->
+<!--                <input class="form-control me-2" type="search" placeholder="Search" value="{{ search_key }}">-->
+<!--                <button class="btn btn-outline-success" type="submit">-->
+<!--                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">-->
+<!--                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>-->
+<!--                </svg>Search</button>-->
+<!--                </form>-->
             </div>
             <div class="row">
             {% for product in products %}
